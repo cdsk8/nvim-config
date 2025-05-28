@@ -134,7 +134,7 @@ return {
             })
         end
     },
-    -- NOTE: neosolarized 
+    -- NOTE: neosolarized
     {
         "craftzdog/solarized-osaka.nvim",
         lazy = false,
@@ -251,7 +251,7 @@ return {
             --         end
             --     end,
             -- })
-	    vim.cmd.colorscheme("tokyonight-storm")
-       end,
+            vim.cmd.colorscheme("tokyonight-storm")
+        end,
     },
 }
