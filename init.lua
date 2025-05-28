@@ -1,6 +1,5 @@
 require("config.lazy")
 
-
 vim.lsp.enable('lua_ls')
 vim.lsp.enable('html')
 vim.lsp.enable('clangd')
@@ -17,4 +16,3 @@ vim.lsp.enable('pylint')
 vim.lsp.enable('stylua')
 vim.lsp.enable('cssls')
 vim.lsp.enable('angularls')
-
