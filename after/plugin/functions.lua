@@ -61,7 +61,7 @@ vim.api.nvim_create_user_command("ListPinnedBuffers", function()
   local pinned = _G.pinned_buffers or {}
   for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
     if vim.api.nvim_buf_is_loaded(bufnr)
-        and vim.api.nvim_buf_get_option(bufnr, "buflisted")
+        and vim.bo[bufnr].buflisted
         and pinned[bufnr] then
       vim.print(bufnr)
     end
@@ -72,7 +72,7 @@ vim.api.nvim_create_user_command("CloseUnpinnedBuffers", function()
   local pinned = _G.pinned_buffers or {}
   for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
     if vim.api.nvim_buf_is_loaded(bufnr)
-        and vim.api.nvim_buf_get_option(bufnr, "buflisted")
+        and vim.bo[bufnr].buflisted
         and not pinned[bufnr] then
       vim.cmd("bd " .. bufnr)
     end
