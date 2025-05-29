@@ -1,84 +1,75 @@
 return {
-    {
-        "nvim-treesitter/nvim-treesitter",
-        event = { "BufReadPre", "BufNewFile" },
-        build = ":TSUpdate",
-        config = function()
-            -- import nvim-treesitter plugin
-            local treesitter = require("nvim-treesitter.configs")
+	{
+		"nvim-treesitter/nvim-treesitter",
+		event = { "BufReadPre", "BufNewFile" },
+		build = ":TSUpdate",
+		config = function()
+			-- import nvim-treesitter plugin
+			local treesitter = require("nvim-treesitter.configs")
 
-            -- Add custom parser for Neorg
-            local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-            parser_config.norg = {
-                install_info = {
-                    url = "https://github.com/nvim-neorg/tree-sitter-norg",
-                    files = { "src/parser.c" },
-                    branch = "main",
-                },
-                filetype = "norg",
-            }
+			-- Add custom parser for Neorg
+			local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
 
-            -- configure treesitter
-            treesitter.setup({ -- enable syntax highlighting
-                highlight = {
-                    enable = true,
-                },
-                -- enable indentation
-                indent = { enable = true },
+			-- configure treesitter
+			treesitter.setup({ -- enable syntax highlighting
+				highlight = {
+					enable = true,
+				},
+				-- enable indentation
+				indent = { enable = true },
 
-                -- ensure these languages parsers are installed
-                ensure_installed = {
-                    "json",
-                    "javascript",
-                    "typescript",
-                    "html",
-                    "css",
-                    "python",
-                    "http",
-                    "bash",
-                    "lua",
-                    "vim",
-                    "gitignore",
-                    "query",
-                    "vimdoc",
-                    "c",
-                    "cpp",
-                    "java",
-                    "norg",
-                },
-                incremental_selection = {
-                    enable = true,
-                    keymaps = {
-                        init_selection = "<C-space>",
-                        node_incremental = "<C-space>",
-                        scope_incremental = false,
-                    },
-                },
-                additional_vim_regex_highlighting = false,
-            })
-        end,
-    },
-    -- NOTE: js,ts,jsx,tsx Auto Close Tags
-    {
-        "windwp/nvim-ts-autotag",
-        ft = { "html", "xml", "javascript", "typescript", "javascriptreact", "typescriptreact", "svelte" },
-        config = function()
-            -- Independent nvim-ts-autotag setup
-            require("nvim-ts-autotag").setup({
-                opts = {
-                    enable_close = true,           -- Auto-close tags
-                    enable_rename = true,          -- Auto-rename pairs
-                    enable_close_on_slash = false, -- Disable auto-close on trailing `</`
-                },
-                per_filetype = {
-                    ["html"] = {
-                        enable_close = true, -- Disable auto-closing for HTML
-                    },
-                    ["typescriptreact"] = {
-                        enable_close = true, -- Explicitly enable auto-closing (optional, defaults to `true`)
-                    },
-                },
-            })
-        end,
-    },
+				-- ensure these languages parsers are installed
+				ensure_installed = {
+					"json",
+					"javascript",
+					"typescript",
+					"html",
+					"css",
+					"python",
+					"http",
+					"bash",
+					"lua",
+					"vim",
+					"gitignore",
+					"query",
+					"vimdoc",
+					"c",
+					"cpp",
+					"java",
+				},
+				incremental_selection = {
+					enable = true,
+					keymaps = {
+						init_selection = "<C-space>",
+						node_incremental = "<C-space>",
+						scope_incremental = false,
+					},
+				},
+				additional_vim_regex_highlighting = false,
+			})
+		end,
+	},
+	-- NOTE: js,ts,jsx,tsx Auto Close Tags
+	{
+		"windwp/nvim-ts-autotag",
+		ft = { "html", "xml", "javascript", "typescript", "javascriptreact", "typescriptreact", "svelte" },
+		config = function()
+			-- Independent nvim-ts-autotag setup
+			require("nvim-ts-autotag").setup({
+				opts = {
+					enable_close = true, -- Auto-close tags
+					enable_rename = true, -- Auto-rename pairs
+					enable_close_on_slash = false, -- Disable auto-close on trailing `</`
+				},
+				per_filetype = {
+					["html"] = {
+						enable_close = true, -- Disable auto-closing for HTML
+					},
+					["typescriptreact"] = {
+						enable_close = true, -- Explicitly enable auto-closing (optional, defaults to `true`)
+					},
+				},
+			})
+		end,
+	},
 }

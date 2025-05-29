@@ -42,6 +42,7 @@ return {
 		local capabilities = cmp_nvim_lsp.default_capabilities()
 
 		lspconfig.marksman.setup({
+			capabilities = capabilities,
 			filetypes = { "markdown" },
 		})
 

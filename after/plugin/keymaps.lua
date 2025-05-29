@@ -335,3 +335,5 @@ vim.keymap.set("n", "<leader>nd", "<CMD>DocsSplit<CR>", { desc = "Docs Split win
 vim.keymap.set("n", "<leader>nD", "<CMD>Docs<CR>", { desc = "Docs" })
 vim.keymap.set("n", "<leader>nn", "<CMD>NotesSplit<CR>", { desc = "Notes Split window" })
 vim.keymap.set("n", "<leader>nN", "<CMD>Notes<CR>", { desc = "Notes" })
+
+vim.keymap.set("n", "<bs>", ":edit #<cr>", { silent = true })
