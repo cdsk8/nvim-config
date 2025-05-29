@@ -1,1 +1,1 @@
-[LINK](./test)
+[LINK](./test.md)
