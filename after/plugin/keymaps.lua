@@ -267,6 +267,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		local ok, telescope = pcall(require, "telescope.builtin")
 		if ok then
 			vim.keymap.set("n", "<leader>ld", telescope.lsp_definitions, { desc = "Lsp definitions (Telescope)" })
+			vim.keymap.set("n", "<leader>lñ", vim.lsp.buf.definition, { desc = "Lsp definitions (Telescope)" })
 			vim.keymap.set(
 				"n",
 				"<leader>li",
