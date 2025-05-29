@@ -7,6 +7,17 @@ return {
             -- import nvim-treesitter plugin
             local treesitter = require("nvim-treesitter.configs")
 
+            -- Add custom parser for Neorg
+            local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+            parser_config.norg = {
+                install_info = {
+                    url = "https://github.com/nvim-neorg/tree-sitter-norg",
+                    files = { "src/parser.c" },
+                    branch = "main",
+                },
+                filetype = "norg",
+            }
+
             -- configure treesitter
             treesitter.setup({ -- enable syntax highlighting
                 highlight = {
@@ -24,8 +35,6 @@ return {
                     "css",
                     "python",
                     "http",
-                    "markdown",
-                    "markdown_inline",
                     "bash",
                     "lua",
                     "vim",
@@ -33,8 +42,9 @@ return {
                     "query",
                     "vimdoc",
                     "c",
-		    "cpp",
+                    "cpp",
                     "java",
+                    "norg",
                 },
                 incremental_selection = {
                     enable = true,
