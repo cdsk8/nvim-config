@@ -39,6 +39,16 @@ return {
 					python = { pattern = "%.py$", icon = "󰌠 " },
 				},
 			},
+			checkbox = {
+				custom = {
+					important = {
+						raw = "[~]",
+						rendered = "󰦖 ",
+						highlight = "DiagnosticWarn",
+					},
+				},
+				checked = { scope_highlight = "@markup.strikethrough" },
+			},
 		},
 		config = function(_, opts)
 			require("render-markdown").setup(opts)
