@@ -1,8 +1,5 @@
-local function apply_to_visual_lines(fn)
-	-- Get visual mode range
-	local start_pos = vim.fn.getpos("'<")[2]
-	local end_pos = vim.fn.getpos("'>")[2]
-	for lnum = start_pos, end_pos do
+function apply_to_visual_lines(fn, start_line, end_line)
+	for lnum = start_line, end_line do
 		local line = vim.fn.getline(lnum)
 		local new_line = fn(line)
 		if new_line ~= nil then
@@ -114,11 +111,6 @@ local function set_checkbox_state(state)
 	local new_line = line:gsub("^(%s*)%- %[[ xX~%-]%]", "%1- " .. state, 1)
 	vim.api.nvim_set_current_line(new_line)
 end
-local function set_checkbox_state_line(state)
-	return function(line)
-		return line:gsub("^(%s*)%- %[[ xX~%-]%]", "%1- " .. state, 1)
-	end
-end
 
 vim.api.nvim_create_user_command("CheckboxState", function(opts)
 	local tag = opts.args or "[ ]"
@@ -131,10 +123,19 @@ end, {
 	desc = "Change checkbox state",
 })
 
+function set_checkbox_state_line(state)
+	return function(line)
+		return line:gsub("^(%s*)%- %[[ xX~%-]%]", "%1- " .. state, 1)
+	end
+end
 vim.api.nvim_create_user_command("CheckboxVisual", function(opts)
 	local tag = opts.args or "[ ]"
 	local fn = set_checkbox_state_line(tag)
-	apply_to_visual_lines(fn)
+
+	print("line1:", opts.line1)
+	print("line2:", opts.line2)
+
+	apply_to_visual_lines(fn, opts.line1, opts.line2)
 end, {
 	nargs = "?",
 	range = true,

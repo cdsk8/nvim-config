@@ -1,4 +1,5 @@
 --General mappings
+require("user.functions")
 
 vim.keymap.set({ "n", "v" }, "<leader>w", vim.cmd.write, { desc = "Write file" })
 vim.keymap.set({ "n", "v" }, "<leader>q", vim.cmd.quit, { desc = "Quit editor" })
@@ -369,7 +370,6 @@ vim.keymap.set("n", "<leader>nd", "<CMD>DocsSplit<CR>", { desc = "Docs Split win
 vim.keymap.set("n", "<leader>nD", "<CMD>Docs<CR>", { desc = "Docs" })
 vim.keymap.set("n", "<leader>nn", "<CMD>NotesSplit<CR>", { desc = "Notes Split window" })
 vim.keymap.set("n", "<leader>nN", "<CMD>Notes<CR>", { desc = "Notes" })
-
 vim.keymap.set("n", "<leader>nt", function()
 	vim.cmd.CheckboxState("[-]")
 end, { desc = "TODO checkbox" })
@@ -384,16 +384,56 @@ vim.keymap.set("n", "<leader>np", function()
 end, { desc = "In progress checkbox" })
 
 vim.keymap.set("v", "<leader>nt", function()
-	vim.cmd.CheckboxVisual("[-]")
+	-- Get the current visual selection range
+	local start_pos = vim.fn.line("v")
+	local end_pos = vim.fn.line(".")
+	if start_pos > end_pos then
+		start_pos, end_pos = end_pos, start_pos
+	end
+
+	local tag = "[-]"
+	local fn = set_checkbox_state_line(tag)
+
+	apply_to_visual_lines(fn, start_pos, end_pos)
 end, { desc = "TODO checkbox" })
 vim.keymap.set("v", "<leader>nc", function()
-	vim.cmd.CheckboxVisual("[x]")
+	-- Get the current visual selection range
+	local start_pos = vim.fn.line("v")
+	local end_pos = vim.fn.line(".")
+	if start_pos > end_pos then
+		start_pos, end_pos = end_pos, start_pos
+	end
+
+	local tag = "[x]"
+	local fn = set_checkbox_state_line(tag)
+
+	apply_to_visual_lines(fn, start_pos, end_pos)
 end, { desc = "DONE checkbox" })
 vim.keymap.set("v", "<leader>ne", function()
-	vim.cmd.CheckboxVisual("[ ]")
+	-- Get the current visual selection range
+	local start_pos = vim.fn.line("v")
+	local end_pos = vim.fn.line(".")
+	if start_pos > end_pos then
+		start_pos, end_pos = end_pos, start_pos
+	end
+
+	local tag = "[ ]"
+	local fn = set_checkbox_state_line(tag)
+
+	apply_to_visual_lines(fn, start_pos, end_pos)
 end, { desc = "Empty checkbox" })
 vim.keymap.set("v", "<leader>np", function()
-	vim.cmd.CheckboxVisual("[~]")
+	-- Get the current visual selection range
+	local start_pos = vim.fn.line("v")
+	local end_pos = vim.fn.line(".")
+	if start_pos > end_pos then
+		start_pos, end_pos = end_pos, start_pos
+	end
+
+	local tag = "[~]"
+	local fn = set_checkbox_state_line(tag)
+
+	apply_to_visual_lines(fn, start_pos, end_pos)
 end, { desc = "In progress checkbox" })
 
 vim.keymap.set("n", "<bs>", ":edit #<cr>", { silent = true })

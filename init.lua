@@ -1,4 +1,6 @@
 require("config.lazy")
+require("user.options")
+require("user.keymaps")
 
 vim.lsp.enable("lua_ls")
 vim.lsp.enable("html")
