@@ -437,3 +437,53 @@ vim.keymap.set("v", "<leader>np", function()
 end, { desc = "In progress checkbox" })
 
 vim.keymap.set("n", "<bs>", ":edit #<cr>", { silent = true })
+
+vim.keymap.set("v", "<leader>csa", function()
+	local visual_mode = vim.fn.mode()
+	local bufnr = vim.api.nvim_get_current_buf()
+	print(visual_mode)
+	if visual_mode == "V" then
+		print("hola")
+		local start_line = vim.fn.line("v")
+		local end_line = vim.fn.line(".")
+		if start_line > end_line then
+			start_line, end_line = end_line, start_line
+		end
+		local start_col = 0
+		local line_content = vim.api.nvim_buf_get_lines(bufnr, end_line - 1, end_line, false)[1]
+		local end_col = #line_content
+		local character = vim.fn.input("Character to use")
+		if character == "" then
+			return
+		end
+		start_line = start_line - 1
+		end_line = end_line - 1
+		vim.api.nvim_buf_set_text(bufnr, end_line, end_col, end_line, end_col, { character })
+		vim.api.nvim_buf_set_text(bufnr, start_line, start_col, start_line, start_col, { character })
+
+		return
+	end
+	local start_pos = vim.fn.getpos("v")
+	local end_pos = vim.fn.getpos(".")
+
+	if start_pos[2] > end_pos[2] then
+		start_pos[2], end_pos[2] = end_pos[2], start_pos[2]
+	end
+	if start_pos[3] > end_pos[3] then
+		start_pos[3], end_pos[3] = end_pos[3], start_pos[3]
+	end
+
+	local start_line = start_pos[2] - 1
+	local start_col = start_pos[3] - 1
+	local end_line = end_pos[2] - 1
+	local end_col = end_pos[3]
+
+	local character = vim.fn.input("Character to use")
+	if character == "" then
+		return
+	end
+
+	-- Insert closing character first to avoid shifting start position
+	vim.api.nvim_buf_set_text(bufnr, end_line, end_col, end_line, end_col, { character })
+	vim.api.nvim_buf_set_text(bufnr, start_line, start_col, start_line, start_col, { character })
+end, { desc = "Surround with character" })

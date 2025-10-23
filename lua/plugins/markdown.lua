@@ -63,7 +63,12 @@ return {
 		end,
 		ft = { "markdown" },
 	},
+	-- {
+	-- 	"jghauser/follow-md-links.nvim",
+	-- },
 	{
-		"jghauser/follow-md-links.nvim",
+		"mzlogin/vim-markdown-toc",
+		ft = "markdown",
+		cmd = { "GenTocGFM", "UpdateToc" },
 	},
 }

@@ -126,7 +126,17 @@ return {
 				},
 			},
 		})
+		local util = require("lspconfig.util")
 
+		require("lspconfig").phpactor.setup({
+			cmd = { "phpactor", "language-server" },
+			capabilities = capabilities, -- enable autocompletion
+			root_dir = function(fname)
+				-- Try to detect project root, or fallback to file's folder
+				return util.root_pattern("composer.json", ".git", ".phpactor.yml", ".phpactor.json")(fname)
+					or util.path.dirname(fname)
+			end,
+		})
 		-- HACK: If using Blink.cmp Configure all LSPs here
 
 		-- ( comment the ones in mason )
